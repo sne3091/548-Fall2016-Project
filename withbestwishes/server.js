@@ -40,9 +40,6 @@
     		var options = { screen_name: req.body.text };
 
     		Twitter.get('friends/list', options , function(err, data) {
-    			for (var i = 0; i < data.length ; i++) {
-    				console.log(data[i].text);
-    			}
     			res.json(data);
     		});
     	});
