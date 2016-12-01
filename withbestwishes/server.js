@@ -37,7 +37,7 @@
     // get all todos
     app.post('/api/tweets', function(req, res) { 
 
-    		var options = { screen_name: req.body.text };
+    		var options = { screen_name: req.body.text, count: 200 };
 
     		Twitter.get('friends/list', options , function(err, data) {
     			res.json(data);
