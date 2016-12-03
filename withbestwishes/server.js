@@ -48,7 +48,7 @@
     var domain_tennis = ["Rafael Nadal","Roger Federer","Serena Williams","Maria Sharapova","Novak Djokovic"];
 
     function getGiftsQuery(category, price_min, price_max){
-        var query = Gifts.find({category:{ $in:category }, price_min:{ $gte: price_min }, price_max: { $lte: price_max }});
+        var query = Gifts.find({category:{ $in:category }, price_min:{ $gte: price_min }, price_max: { $lte: price_max }}).sort({price_min: +1 });
         return query;
     }
 
