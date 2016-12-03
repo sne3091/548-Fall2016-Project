@@ -1,7 +1,7 @@
 </html>
 <!-- public/index.html -->
 <!doctype html>
-<html lang="en" ng-app="withBestWishes">
+<html lang="en">
 <head>
 	<style>
    body {
@@ -31,95 +31,56 @@
 <!-- JS -->
 <script src="../libs/angular/angular.min.js"></script>
 <script src="../libs/angular-route/angular-route.min.js"></script>
+<script src="../libs/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="../libs/jquery/dist/jquery.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
 
 </head>
-<body ng-controller="mainController">
+<body ng-app="withBestWishes">
   <h2>With Best Wishes...</h2>
-  <div class="container center-div">
-    <div class="container-fluid jumbotron">
-      <form>
-        <div class="row">
-          <div class="col-lg-4">
-            <div class="input-group">
-              <input type="text" class="form-control" ng-model="formData.text" placeholder="Search for..." size=60>
-            </div><!-- /input-group -->
-          </div><!-- /.col-lg-6 -->
-          <div class="col-lg-3">
-            <select class="form-control col-lg-3" id="budget" ng-model="formData.budget">
-              <option value="" selected="true">Budget</option>
-              <option value="$0-$20">Upto $20</option>
-              <option value="$20-$50">$20-$50</option>
-              <option value="$50-$70">$50-$70</option>
-              <option value="$70-$500">Above $70</option>
-            </select>
+  <div ng-controller="mainController">
+    <div class="container center-div">
+      <div class="container-fluid jumbotron">
+        <form>
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="input-group">
+                <input type="text" class="form-control" ng-model="formData.text" placeholder="Search for..." size=60>
+              </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+            <div class="col-lg-3">
+              <select class="form-control col-lg-3" id="budget" ng-model="formData.budget">
+                <option value="" selected="true">Budget</option>
+                <option value="$0-$20">Upto $20</option>
+                <option value="$20-$50">$20-$50</option>
+                <option value="$50-$70">$50-$70</option>
+                <option value="$70-$500">Above $70</option>
+              </select>
+            </div>
+            <div class="form-group col-lg-3">
+              <input type="radio" class="radio-inline" ng-model="formData.searchby" value="interest" />&nbsp;&nbsp;By Interest
+              <input type="radio" class="radio-inline" ng-model="formData.searchby" value="twitter"/>&nbsp;&nbsp;By Twitter
+            </div>
+            <div class="col-lg-2">
+              <button type="submit" class="btn btn-default" ng-click="fetchResults()">Find Gifts!!</button>
+            </div>
           </div>
-          <div class="form-group col-lg-3">
-            <input type="radio" class="radio-inline" ng-model="formData.searchby" value="interest" />&nbsp;&nbsp;By Interest
-            <input type="radio" class="radio-inline" ng-model="formData.searchby" value="twitter"/>&nbsp;&nbsp;By Twitter
-          </div>
-          <div class="col-lg-2">
-            <button type="submit" class="btn btn-default" ng-click="fetchResults()">Find Gifts!!</button>
-          </div>
+        </form>
+      </div>
+    </div>
+    <hr />
+    <div class="container-fluid" ng-model="results1" ng-show="resultsVisible">
+     <div class="row"> 
+      <div class="col-sm-4" ng-repeat="item in currentItems">
+        <div class="panel panel-primary">
+          <div class="panel-heading" style="font-size:small;height:50;">{{item.title}}</div>
+          <div class="panel-body" style="height:200;"><a href={{item.url}}><img src={{item.image}} class="img-responsive" style="height: 150;width: 150;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
+          <div class="panel-footer">${{item.price_min}}</div>
         </div>
-      </form>
-    </div>
-  </div>
-   <hr />
-   <div class="container-fluid" ng-model="results1" ng-show="resultsVisible">
-   <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">{{items[0].title}}</div>
-        <div class="panel-body"><a href={{items[0].url}}><img src={{items[0].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[0].price_min}}</div>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel panel-danger">
-        <div class="panel-heading">{{items[1].title}}</div>
-        <div class="panel-body"><a href={{items[1].url}}><img src={{items[1].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[1].price_min}}</div>
       </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel panel-success">
-        <div class="panel-heading">{{items[2].title}}</div>
-        <div class="panel-body"><a href={{items[2].url}}><img src={{items[2].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[2].price_min}}</div>
-      </div>
-    </div>
-  </div>
-</div><br>
-
-<div class="container-fluid" ng-model="results2" ng-show="resultsVisible">
-  <div class="row">
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">{{items[3].title}}</div>
-        <div class="panel-body"><a href={{items[3].url}}><img src={{items[3].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[3].price_min}}</div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">{{items[4].title}}</div>
-        <div class="panel-body"><a href={{items[4].url}}><img src={{items[4].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[4].price_min}}</div>
-      </div>
-    </div>
-    <div class="col-sm-4">
-      <div class="panel panel-primary">
-        <div class="panel-heading">{{items[5].title}}</div>
-        <div class="panel-body"><a href={{items[5].url}}><img src={{items[5].image}} class="img-responsive" style="height: 200;width: 200;margin-left: 70;" alt="https://placehold.it/150x80?text=IMAGE"></a></div>
-        <div class="panel-footer">${{items[5].price_min}}</div>
-      </div>
-    </div>
   </div>
 </div>
-   </div>
-  <!-- ANGULAR CUSTOM -->
-  <script src="core.js"></script>
+<!-- ANGULAR CUSTOM -->
+<script src="core.js"></script>
 </body>
 </html>
