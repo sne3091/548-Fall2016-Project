@@ -12,6 +12,7 @@ if __name__ == '__main__':
         for line in inp:
             links.append(line.strip())
     #print(links)
+    print("Extracting info for Walmart")
     with open("walmart_extract_desc.json","w") as out: #output file
         out.write("[")    
         for l in links:
